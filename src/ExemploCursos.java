@@ -1,6 +1,5 @@
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 class Curso {
@@ -32,9 +31,9 @@ public class ExemploCursos {
         cursos.sort(Comparator.comparing(Curso::getAlunos));
 
 //        cursos.stream().filter(c -> c.getAlunos() >= 100).forEach(c -> System.out.println(c.getNome()));
-        cursos.stream().map(Curso::getAlunos).filter(alunos -> alunos > 50).forEach(System.out::println);
+        cursos.stream().map(Curso::getAlunos).filter(alunos -> alunos > 100).forEach(System.out::println);
 
-        int sum = cursos.stream().filter(c -> c.getAlunos() > 50).mapToInt(Curso::getAlunos).sum();
+        int sum = cursos.stream().filter(c -> c.getAlunos() > 100).mapToInt(Curso::getAlunos).sum();
 
         System.out.println("Total de alunos dos cursos: " + sum);
         System.out.println();
@@ -45,7 +44,31 @@ public class ExemploCursos {
         System.out.println("______________________________________");
 
 
-        cursos.stream().map(Curso::getAlunos).filter(alunos -> alunos > 50).forEach(System.out::println);
+//        cursos.stream()
+//                .map(Curso::getAlunos)
+//                .filter(alunos -> alunos > 100)
+//                .forEach(System.out::println);
+
+//        cursos.stream()
+//                .filter(curso -> curso.getAlunos() >= 100)
+//                .findAny()
+//                .ifPresent(curso -> System.out.println(curso.getNome()));
+
+//        cursos = cursos.stream()
+//                .filter(curso -> curso.getAlunos() >= 100)
+//                .collect(Collectors.toList());
+
+        cursos.stream()
+                .filter(c -> c.getAlunos() >= 100)
+                .collect(Collectors.toMap(
+                        c -> c.getNome(),
+                        c -> c.getAlunos()))
+                .forEach((nome, alunos) -> System.out.println(nome + " tem " + alunos + " alunos."));
+
+
+        System.out.println("______________________________________");
+
+        cursos.stream().forEach(curso -> System.out.println(curso.getNome()));
 
     }
 }
