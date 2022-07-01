@@ -64,11 +64,28 @@ public class ExemploCursos {
                         c -> c.getNome(),
                         c -> c.getAlunos()))
                 .forEach((nome, alunos) -> System.out.println(nome + " tem " + alunos + " alunos."));
+        System.out.println("______________________________________");
 
 
+        cursos.stream()
+                .mapToInt(c -> c.getAlunos())
+                .average()
+                .ifPresent(System.out::println);
+
+
+        System.out.println();
         System.out.println("______________________________________");
 
         cursos.stream().forEach(curso -> System.out.println(curso.getNome()));
+
+        System.out.println();
+        System.out.println("______________________________________");
+
+        List<Curso> cursosFiltrados = cursos.stream()
+                .filter(c -> c.getAlunos() > 50)
+                .collect(Collectors.toList());
+
+        cursosFiltrados.forEach(curso -> System.out.println(curso.getAlunos()));
 
     }
 }
